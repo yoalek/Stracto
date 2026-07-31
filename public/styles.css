@@ -5,12 +5,67 @@
   --border-soft: #1e1e1e;
   --text: #f2f0ed;
   --text-dim: #8a8a8a;
-  --text-faint: #5c5c5c;
-  --accent: #e8531e;
-  --accent-soft: rgba(232, 83, 30, 0.12);
+  --text-faint: #7a7a7a;
+  --accent: #c94213;
+  --accent-soft: rgba(201, 66, 19, 0.12);
   --mono: 'JetBrains Mono', monospace;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --radius: 10px;
+  /* Concentric radius scale (each step ≈ parent − 4px) */
+  --radius-xl: 16px;   /* large panels */
+  --radius:    12px;   /* primary panels (terminal, block) */
+  --radius-sm: 8px;    /* concentric child of 12px */
+  --radius-xs: 6px;    /* nested chips / inner example */
+  --radius-2xs: 4px;
+
+  /* Layered shadows: ambient (short) + key (diffuse) */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4), 0 1px 1px rgba(0,0,0,0.25);
+  --shadow-2: 0 2px 6px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-accent: 0 8px 24px rgba(201,66,19,0.28), 0 2px 4px rgba(201,66,19,0.18);
+
+  /* Press scale (used on every tappable element's :active) */
+  --press-scale: 0.97;
+
+  /* ── Motion tokens (Transitions.dev) ── */
+  --duration-stagger: 40ms;
+  --duration-micro: 80ms;
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --duration-slow: 400ms;
+  --duration-very-slow: 500ms;
+  
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: ease-in-out;
+  --ease-out: ease-out;
+  --ease-linear: linear;
+  --ease-bounce: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --ease-bounce-strong: cubic-bezier(0.34, 3.85, 0.64, 1);
+
+  --distance-micro: 4px;
+  --distance-small: 6px;
+  --distance-base: 8px;
+  --distance-medium: 12px;
+  --distance-large: 30px;
+
+  --scale-large: 0.96;
+  --scale-medium: 0.97;
+  --scale-small: 0.98;
+  --scale-tiny: 0.99;
+
+  --blur-small: 2px;
+  --blur-medium: 3px;
+  --blur-large: 8px;
+
+  /* Spacing Scale */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,6 +80,9 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  /* Crisper text on macOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .bg-glow {
@@ -61,6 +119,9 @@ body {
   color: var(--accent);
   font-size: 20px;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-text {
@@ -94,7 +155,13 @@ body {
   text-decoration: none;
   font-size: 14.5px;
   font-weight: 500;
-  transition: color 0.15s ease;
+  /* 44x44 hit area */
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 6px;
+  min-height: 44px;
+  transform-origin: center;
+  transition: color var(--duration-quick) var(--ease-smooth-out), transform var(--duration-quick) var(--ease-smooth-out);
 }
 
 .nav-link:hover,
@@ -102,10 +169,15 @@ body {
   color: var(--text);
 }
 
+.nav-link:active {
+  transform: scale(var(--press-scale));
+}
+
 .icon-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  /* Hit area: 44x44 (WCAG). Visual stays compact via centered glyph. */
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-dim);
@@ -114,7 +186,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transform-origin: center;
+  transition: border-color var(--duration-quick) var(--ease-smooth-out), color var(--duration-quick) var(--ease-smooth-out), transform var(--duration-quick) var(--ease-smooth-out);
+}
+
+.icon-btn svg,
+.icon-btn {
+  /* Optical nudge: ⚙ reads slightly low in its glyph box */
+}
+.icon-btn {
+  /* nudge glyph down/center visually */
+  line-height: 1;
+  padding-top: 1px;
 }
 
 .icon-btn:hover {
@@ -122,12 +205,16 @@ body {
   color: var(--text);
 }
 
+.icon-btn:active {
+  transform: scale(var(--press-scale));
+}
+
 /* ---------- Page / Hero ---------- */
 
 .page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 64px 24px 100px;
+  padding: var(--space-4xl) var(--space-md) var(--space-4xl);
   position: relative;
   z-index: 1;
 }
@@ -140,14 +227,8 @@ body {
   color: #fafaf9;
 }
 
-.hero-icon {
-  color: var(--accent);
-  font-size: 46px;
-  display: inline-block;
-}
-
 .hero-desc {
-  margin-top: 26px;
+  margin-top: var(--space-lg);
   max-width: 560px;
   font-size: 16.5px;
   color: var(--text-dim);
@@ -155,23 +236,23 @@ body {
 }
 
 .url-form {
-  margin-top: 36px;
+  margin-top: var(--space-xl);
   display: flex;
-  gap: 12px;
+  gap: var(--space-sm);
 }
 
 .url-input {
   flex: 1;
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0 20px;
+  border-radius: var(--radius-sm); /* 8px, concentric under 12px panels */
+  padding: 0 var(--space-lg);
   height: 56px;
   color: var(--text);
   font-size: 15px;
   font-family: var(--sans);
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--duration-quick) var(--ease-smooth-out), box-shadow var(--duration-quick) var(--ease-smooth-out);
 }
 
 .url-input::placeholder {
@@ -180,55 +261,75 @@ body {
 
 .url-input:focus {
   border-color: #3a3a3a;
+  box-shadow: 0 0 0 3px rgba(201, 66, 19, 0.10);
 }
 
 .cta-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: var(--space-sm);
   background: var(--accent);
   color: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 0 26px;
+  border-radius: var(--radius-sm); /* 8px */
+  padding: 0 var(--space-xl);
   height: 56px;
   font-size: 15px;
   font-weight: 600;
   font-family: var(--sans);
   cursor: pointer;
   white-space: nowrap;
-  transition: filter 0.15s ease, transform 0.1s ease;
+  transform-origin: center;
+  box-shadow: var(--shadow-accent);
+  transition: filter var(--duration-quick) var(--ease-smooth-out), transform var(--duration-quick) var(--ease-smooth-out), box-shadow var(--duration-quick) var(--ease-smooth-out);
 }
 
 .cta-btn:hover {
   filter: brightness(1.08);
+  box-shadow: var(--shadow-accent);
+}
+
+.cta-btn:disabled {
+  cursor: progress;
+  opacity: 0.85;
 }
 
 .cta-btn:active {
-  transform: translateY(1px);
+  transform: scale(var(--press-scale));
 }
 
 .arrow {
   font-size: 15px;
+  /* Optical nudge: → / ↓ / ⌛ sit slightly low in their box */
+  transform: translateY(0.5px);
+}
+
+.cta-btn svg,
+.cta-btn svg {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* ---------- Terminal ---------- */
 
 .terminal {
-  margin-top: 40px;
+  margin-top: var(--space-2xl);
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 24px 28px;
+  padding: var(--space-lg);
   font-family: var(--mono);
   font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+  box-shadow: var(--shadow-1);
 }
 
 .terminal-row {
   display: flex;
   align-items: center;
-  gap: 22px;
-  padding: 5px 0;
+  gap: var(--space-lg);
+  padding: var(--space-2xs) 0;
   color: var(--text-dim);
 }
 
@@ -236,6 +337,7 @@ body {
   color: var(--text-faint);
   flex-shrink: 0;
   width: 78px;
+  font-variant-numeric: tabular-nums;
 }
 
 .t-msg {
@@ -245,6 +347,7 @@ body {
 .t-percent {
   margin-left: auto;
   color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
 }
 
 .progress-row {
@@ -276,17 +379,49 @@ body {
   box-shadow: 0 0 8px rgba(232, 83, 30, 0.7);
 }
 
+/* ---------- Terminal Exemplo (Standby) ---------- */
+
+.terminal-example {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-xs); /* concentric: 12px parent − inset */
+  padding: 18px 20px;
+}
+
+.terminal-example-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+
+.terminal-example-steps {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.terminal-example-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 5px 0;
+}
+
 /* ---------- Storyboard ---------- */
 
 .storyboard {
-  margin-top: 56px;
+  margin-top: var(--space-3xl);
 }
 
 .storyboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
+}
+
+.storyboard-header:focus {
+  outline: none;
 }
 
 .storyboard-header h2 {
@@ -307,24 +442,34 @@ body {
   border: 1px solid rgba(232, 83, 30, 0.35);
   background: var(--accent-soft);
   padding: 6px 14px;
-  border-radius: 7px;
+  border-radius: var(--radius-xs); /* 6px, concentric step */
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .block {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
-  padding: 22px 22px 26px;
-  margin-bottom: 22px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
   background: rgba(255, 255, 255, 0.012);
+  box-shadow: var(--shadow-1);
 }
 
 .block-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: var(--space-md);
   cursor: pointer;
-  user-select: none;
+  min-height: 44px;
+  transform-origin: center;
+  /* coast through transition so press feels instant */
+  transition: transform var(--duration-micro) var(--ease-smooth-out);
+}
+
+.block-header:active {
+  transform: scale(var(--press-scale));
 }
 
 .block-header-left {
@@ -336,26 +481,33 @@ body {
 .block-toggle-icon {
   font-size: 12px;
   color: var(--text-faint);
-  transition: transform 0.2s ease;
+  transition: transform var(--duration-fast) var(--ease-smooth-out);
+  /* Optical nudge: ▼ sits low in its glyph box */
+  transform: translateY(-1px);
+}
+.block.collapsed .block-toggle-icon {
+  transform: translateY(-1px) rotate(-90deg);
 }
 
 .block.collapsed .block-toggle-icon {
-  transform: rotate(-90deg);
+  transform: translateY(-1px) rotate(-90deg);
 }
 
 .block.collapsed .frame-grid {
   display: none;
 }
 
-.block.collapsed {
-  padding-bottom: 22px;
-  margin-bottom: 12px;
+.block-header:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 .block-range {
   font-size: 15.5px;
   font-weight: 600;
   color: #ececec;
+  font-variant-numeric: tabular-nums;
 }
 
 .block-duration {
@@ -363,26 +515,65 @@ body {
   font-size: 12px;
   color: var(--text-dim);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   padding: 3px 9px;
+  font-variant-numeric: tabular-nums;
 }
 
 .frame-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 .frame {
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.frame-download {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Visual radius concentric with image: 6px */
+  border-radius: var(--radius-xs);
+  /* Hit area 44x44 (visual smaller, padded) */
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform-origin: center;
+  transition: background var(--duration-quick) var(--ease-smooth-out), border-color var(--duration-quick) var(--ease-smooth-out), transform var(--duration-micro) var(--ease-smooth-out);
+}
+
+.frame-download:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.frame-download:active {
+  transform: scale(var(--press-scale));
+}
+
+.storyboard-actions {
+  margin-top: var(--space-xl);
+  text-align: center;
 }
 
 .frame img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--radius-sm); /* 8px, concentric under 12px block */
   border: 1px solid var(--border-soft);
   background: #1a1a1a;
   display: block;
@@ -396,6 +587,7 @@ body {
   font-family: var(--mono);
   font-size: 12px;
   color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
 }
 
 .frame-caption {
@@ -418,10 +610,15 @@ body {
     padding: 18px 20px;
   }
   .nav {
-    gap: 18px;
+    gap: 0;
   }
   .nav-link {
-    font-size: 13px;
+    display: none;
+  }
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
   }
   .hero-title {
     font-size: 38px;
@@ -441,6 +638,13 @@ body {
   }
   .t-time {
     width: auto;
+  }
+  .block-header {
+    min-height: 44px;
+  }
+  .terminal-example-row {
+    gap: 12px;
+    flex-wrap: wrap;
   }
 }
 

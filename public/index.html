@@ -14,7 +14,7 @@
 
 <header class="topbar">
   <div class="brand">
-    <span class="brand-icon">✳</span>
+    <span class="brand-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L12 22 M2 12 L22 12 M4.5 4.5 L19.5 19.5 M19.5 4.5 L4.5 19.5"/></svg></span>
     <div class="brand-text">
       <span class="brand-name">stracto</span>
       <span class="brand-sub">AI STORYBOARDER</span>
@@ -24,14 +24,14 @@
     <a href="#" class="nav-link active">Dashboard</a>
     <a href="#" class="nav-link">Configurações</a>
     <a href="#" class="nav-link">Ajuda</a>
-    <button class="icon-btn" aria-label="Configurações do sistema">⚙</button>
+    <button class="icon-btn" aria-label="Configurações do sistema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
   </nav>
 </header>
 
 <main class="page">
 
   <section class="hero">
-    <h1 class="hero-title">Transforme <span class="hero-icon">✳</span><br>qualquer vídeo em<br>um storyboard<br>inteligente.</h1>
+    <h1 class="hero-title">Transforme <span class="hero-icon"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L12 22 M2 12 L22 12 M4.5 4.5 L19.5 19.5 M19.5 4.5 L4.5 19.5"/></svg></span><br>qualquer vídeo em<br>um storyboard<br>inteligente.</h1>
     <p class="hero-desc">Cole o link de um Reels, TikTok ou qualquer vídeo e nossa IA transcreve o áudio e cria o storyboard em blocos de 8 segundos.</p>
 
     <form class="url-form" onsubmit="return false;">
@@ -40,36 +40,17 @@
     </form>
   </section>
 
-  <section class="terminal" aria-label="Progresso do processamento">
-    <div class="terminal-row">
-      <span class="t-time">00:00:01</span>
-      <span class="t-msg">Conectando ao vídeo...</span>
-    </div>
-    <div class="terminal-row">
-      <span class="t-time">00:00:03</span>
-      <span class="t-msg">Baixando vídeo...</span>
-      <span class="t-percent">45%</span>
-    </div>
-    <div class="terminal-row progress-row">
-      <span class="t-time">00:00:08</span>
-      <div class="progress-track"><div class="progress-fill"></div></div>
-    </div>
-    <div class="terminal-row">
-      <span class="t-time">00:00:08</span>
-      <span class="t-msg">Extraindo áudio...</span>
-    </div>
-    <div class="terminal-row">
-      <span class="t-time">00:00:12</span>
-      <span class="t-msg">Transcrevendo com IA (Whisper)...</span>
-    </div>
-    <div class="terminal-row">
-      <span class="t-time">00:00:18</span>
-      <span class="t-msg">Identificando falas e frames...</span>
-    </div>
-    <div class="terminal-row">
-      <span class="t-time">00:00:20</span>
-      <span class="t-msg">Agrupando em blocos de 8 segundos...</span>
-      <span class="t-dot"></span>
+  <section class="terminal" role="log" aria-live="polite" aria-label="Progresso do processamento">
+    <div class="terminal-example">
+      <div class="terminal-example-label">EXEMPLO DO PIPELINE</div>
+      <div class="terminal-example-steps">
+        <div class="terminal-example-row"><span class="t-time">00:00:01</span><span class="t-msg">Conectando ao vídeo...</span></div>
+        <div class="terminal-example-row"><span class="t-time">00:00:03</span><span class="t-msg">Baixando vídeo...</span><span class="t-percent">45%</span></div>
+        <div class="terminal-example-row"><span class="t-time">00:00:08</span><span class="t-msg">Extraindo áudio...</span></div>
+        <div class="terminal-example-row"><span class="t-time">00:00:12</span><span class="t-msg">Transcrevendo com IA (Whisper)...</span></div>
+        <div class="terminal-example-row"><span class="t-time">00:00:18</span><span class="t-msg">Identificando falas e frames...</span></div>
+        <div class="terminal-example-row"><span class="t-time">00:00:20</span><span class="t-msg">Agrupando em blocos de 8 segundos...</span><span class="t-dot"></span></div>
+      </div>
     </div>
   </section>
 
