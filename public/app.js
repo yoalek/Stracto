@@ -201,9 +201,13 @@ blocks.forEach((block, idx) => {
 
                         storyboard.innerHTML = html + `
                         <div class="storyboard-actions">
-                            <button class="cta-btn" onclick="exportScript(${JSON.stringify(blocks).replace(/"/g, '"')})">Salvar Roteiro Completo (.txt) ${downloadIcon()}</button>
+                            <button class="cta-btn" id="btn-save-script">Salvar Roteiro Completo (.txt) ${downloadIcon()}</button>
                         </div>
                         `;
+                        document.getElementById('btn-save-script').addEventListener('click', () => {
+                            window.exportScript(blocks);
+                        });
+
                         storyboard.style.display = 'block';
                         setTimeout(() => {
                             const header = document.getElementById('storyboard-start');
