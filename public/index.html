@@ -1,50 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Storyboard Extractor</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stracto — AI Storyboarder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="glass-container main-panel">
-        <header>
-            <div class="logo">
-                <i data-lucide="film"></i>
-                <h1>AI Storyboarder</h1>
-            </div>
-            <p class="subtitle">Faça a engenharia reversa de qualquer vídeo cena por cena</p>
-        </header>
 
-        <main>
-            <div class="form-group">
-                <label for="url">Link do Vídeo (Reel, TikTok, YouTube)</label>
-                <input type="text" id="url" placeholder="https://www.facebook.com/reel/123456789">
-            </div>
+<div class="bg-glow"></div>
 
-            <button id="startBtn" class="btn-primary">
-                <i data-lucide="zap"></i>
-                Gerar Storyboard
-            </button>
-
-            <!-- Logs / Progress -->
-            <div class="logs-container" id="logsContainer" style="display: none;">
-                <div class="loader-pulse"></div>
-                <ul id="logList"></ul>
-            </div>
-        </main>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-icon">✳</span>
+    <div class="brand-text">
+      <span class="brand-name">stracto</span>
+      <span class="brand-sub">AI STORYBOARDER</span>
     </div>
+  </div>
+  <nav class="nav">
+    <a href="#" class="nav-link active">Dashboard</a>
+    <a href="#" class="nav-link">Configurações</a>
+    <a href="#" class="nav-link">Ajuda</a>
+    <button class="icon-btn" aria-label="Configurações do sistema">⚙</button>
+  </nav>
+</header>
 
-    <!-- Storyboard Results -->
-    <div class="glass-container results-panel" id="resultsPanel" style="display: none;">
-        <h2><i data-lucide="image"></i> Storyboard Gerado</h2>
-        <div class="storyboard-grid" id="storyboardGrid">
-            <!-- Cards will be injected here -->
-        </div>
+<main class="page">
+
+  <section class="hero">
+    <h1 class="hero-title">Transforme <span class="hero-icon">✳</span><br>qualquer vídeo em<br>um storyboard<br>inteligente.</h1>
+    <p class="hero-desc">Cole o link de um Reels, TikTok ou qualquer vídeo e nossa IA transcreve o áudio e cria o storyboard em blocos de 8 segundos.</p>
+
+    <form class="url-form" onsubmit="return false;">
+      <input type="text" class="url-input" placeholder="Cole o link do vídeo aqui..." aria-label="Link do vídeo">
+      <button type="submit" class="cta-btn">Gerar Storyboard <span class="arrow">→</span></button>
+    </form>
+  </section>
+
+  <section class="terminal" aria-label="Progresso do processamento">
+    <div class="terminal-row">
+      <span class="t-time">00:00:01</span>
+      <span class="t-msg">Conectando ao vídeo...</span>
     </div>
+    <div class="terminal-row">
+      <span class="t-time">00:00:03</span>
+      <span class="t-msg">Baixando vídeo...</span>
+      <span class="t-percent">45%</span>
+    </div>
+    <div class="terminal-row progress-row">
+      <span class="t-time">00:00:08</span>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+    <div class="terminal-row">
+      <span class="t-time">00:00:08</span>
+      <span class="t-msg">Extraindo áudio...</span>
+    </div>
+    <div class="terminal-row">
+      <span class="t-time">00:00:12</span>
+      <span class="t-msg">Transcrevendo com IA (Whisper)...</span>
+    </div>
+    <div class="terminal-row">
+      <span class="t-time">00:00:18</span>
+      <span class="t-msg">Identificando falas e frames...</span>
+    </div>
+    <div class="terminal-row">
+      <span class="t-time">00:00:20</span>
+      <span class="t-msg">Agrupando em blocos de 8 segundos...</span>
+      <span class="t-dot"></span>
+    </div>
+  </section>
 
-    <script src="app.js"></script>
-    <script>lucide.createIcons();</script>
+  <section class="storyboard" style="display: none;">
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+
 </body>
 </html>
