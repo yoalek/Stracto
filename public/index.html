@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Storyboard Extractor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="glass-container main-panel">
+        <header>
+            <div class="logo">
+                <i data-lucide="film"></i>
+                <h1>AI Storyboarder</h1>
+            </div>
+            <p class="subtitle">Faça a engenharia reversa de qualquer vídeo cena por cena</p>
+        </header>
+
+        <main>
+            <div class="form-group">
+                <label for="url">Link do Vídeo (Reel, TikTok, YouTube)</label>
+                <input type="text" id="url" placeholder="https://www.facebook.com/reel/123456789">
+            </div>
+
+            <button id="startBtn" class="btn-primary">
+                <i data-lucide="zap"></i>
+                Gerar Storyboard
+            </button>
+
+            <!-- Logs / Progress -->
+            <div class="logs-container" id="logsContainer" style="display: none;">
+                <div class="loader-pulse"></div>
+                <ul id="logList"></ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Storyboard Results -->
+    <div class="glass-container results-panel" id="resultsPanel" style="display: none;">
+        <h2><i data-lucide="image"></i> Storyboard Gerado</h2>
+        <div class="storyboard-grid" id="storyboardGrid">
+            <!-- Cards will be injected here -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
