@@ -50,7 +50,7 @@ Quando terminar de usar, basta ir no terminal e apertar **Ctrl + C** para deslig
 
 ---
 
-## ⚠️ Observações de Primeira Execução
+## ⏳ Observações de Primeira Execução
 Ao realizar a transcrição do primeiro vídeo, o Node.js fará o download do modelo **Whisper Tiny** (`~150MB`) diretamente da HuggingFace. Isso ocorre apenas uma vez. Após baixado, ele fica armazenado no cache da sua máquina e as transcrições seguintes serão quase instantâneas.
 
 ---
