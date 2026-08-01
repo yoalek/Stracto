@@ -30,11 +30,14 @@ Certifique-se de ter instalado no seu Mac/Linux/Windows:
 Nós criamos um atalho global para facilitar a vida de todos os usuários, de qualquer nível de conhecimento técnico. Siga o passo a passo abaixo apenas uma vez:
 
 ### Passo 1: Instalação Automática
-Abra o aplicativo **Terminal** do seu computador (pode ser em qualquer pasta) e cole exatamente o comando abaixo, depois aperte **Enter**:
+Abra o aplicativo **Terminal** do seu computador (pode ser em qualquer pasta) e cole o comando abaixo, apertando **Enter**:
 ```bash
-sudo npm install -g yoalek/Stracto
+npm install -g stracto
 ```
-*(Nota: O terminal pode pedir a sua senha do Mac/Linux. Quando você digitar, nada vai aparecer na tela por questões de segurança. É só digitar a senha normalmente e apertar Enter).*
+> **⚠️ Nota para usuários de Mac e Linux:**
+> Se o seu terminal apresentar um erro de permissão (como `EACCES`), significa que a sua instalação do Node exige acesso de administrador. Nesse caso, basta adicionar `sudo` na frente:
+> `sudo npm install -g stracto`
+> *(O terminal pedirá a sua senha. Quando você digitar, nada vai aparecer na tela por segurança. É só digitar normalmente e apertar Enter).*
 
 ### Passo 2: Como Usar no Dia a Dia
 Pronto! A ferramenta já está instalada no seu computador. 
