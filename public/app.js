@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         blocks.forEach(block => {
             content += `BLOCO: ${block.title}\n`;
             block.items.forEach(item => {
-                content += `[${item.start}] ${item.text}\n`;
+                const timeRange = `${item.start}s - ${item.end ? item.end + 's' : 'Fim'}`;
+                content += `[${timeRange}] ${item.text}\n`;
             });
             content += "\n";
         });
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.imageUrl}" alt="Frame at ${item.start}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iI2M0YzRjNCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2VtPC90ZXh0Pjwvc3ZnPg=='">
                 <button class="frame-download" onclick="downloadImage('${item.imageUrl}', 'frame_${item.start}.jpg')" aria-label="Baixar frame">${downloadIcon()}</button>
                 <div class="frame-meta">
-                    <span class="frame-time">${item.start}</span>
+                    <span class="frame-time">${item.start}s - ${item.end ? item.end + 's' : 'Fim'}</span>
                     <p class="frame-caption">${item.text}</p>
                 </div>
             </article>
@@ -185,7 +186,8 @@ blocks.forEach((block, idx) => {
         blocks.forEach(block => {
             block.items.forEach(item => {
                 const text = `"${item.text.replace(/"/g, '""')}"`;
-                csvContent += `"${item.start}",${text},"${item.imageUrl}"\n`;
+                const timeRange = `${item.start}s - ${item.end ? item.end + 's' : 'Fim'}`;
+                csvContent += `"${timeRange}",${text},"${item.imageUrl}"\n`;
             });
         });
         const encodedUri = encodeURI(csvContent);

@@ -139,13 +139,19 @@ async function processJob(jobId) {
         const aiModel = await getTranscriber(jobId);
         broadcast(jobId, 'log', { message: '📝 Transcrevendo (Isso pode levar alguns segundos)...' });
         
-        const result = await aiModel(audioData, { return_timestamps: true });
+        const result = await aiModel(audioData, { 
+            return_timestamps: true,
+            chunk_length_s: 30, // Força a divisão em janelas de 30s (tamanho nativo do Whisper)
+            stride_length_s: 5  // Sobreposição de 5s para evitar cortes em palavras
+        });
         
-        const transcription = result.chunks.map(c => ({
-            start: c.timestamp[0], 
-            end: c.timestamp[1],
-            text: c.text.trim()
-        }));
+        const transcription = result.chunks
+            .filter(c => c.timestamp && c.timestamp[0] !== null && c.timestamp[0] !== undefined)
+            .map(c => ({
+                start: c.timestamp[0], 
+                end: c.timestamp[1],
+                text: c.text.trim()
+            }));
         
         broadcast(jobId, 'log', { message: `✅ Transcrição concluída! ${transcription.length} cenas detectadas.` });
         
@@ -163,6 +169,7 @@ async function processJob(jobId) {
                 storyboard.push({
                     text: item.text,
                     start: item.start,
+                    end: item.end,
                     imageUrl: `/output/${jobId}/${frameFilename}`
                 });
             } catch (err) {
