@@ -25,27 +25,25 @@ Certifique-se de ter instalado no seu Mac/Linux/Windows:
 
 ---
 
-## 🛠️ Como Instalar e Rodar
+## 🛠️ Como Instalar e Rodar (Módulo Global)
 
-1. **Clone ou acesse a pasta do repositório:**
-   ```bash
-   cd Stracto
-   ```
+Nós criamos um atalho global para facilitar a vida de todos os usuários, de qualquer nível de conhecimento técnico. Siga o passo a passo abaixo apenas uma vez:
 
-2. **Instale as dependências do Node:**
-   ```bash
-   npm install
-   ```
+### Passo 1: Instalação Automática
+Abra o aplicativo **Terminal** do seu computador (pode ser em qualquer pasta) e cole exatamente o comando abaixo, depois aperte **Enter**:
+```bash
+sudo npm install -g yoalek/Stracto
+```
+*(Nota: O terminal pode pedir a sua senha do Mac/Linux. Quando você digitar, nada vai aparecer na tela por questões de segurança. É só digitar a senha normalmente e apertar Enter).*
 
-3. **Inicie o Servidor:**
-   ```bash
-   npm start
-   # ou
-   node server.js
-   ```
-
-4. **Acesse a Aplicação:**
-   Abra seu navegador e acesse: [http://localhost:3001](http://localhost:3001)
+### Passo 2: Como Usar no Dia a Dia
+Pronto! A ferramenta já está instalada no seu computador. 
+A partir de agora, sempre que quiser abrir o app, basta abrir o Terminal e digitar:
+```bash
+stractor
+```
+O servidor vai iniciar sozinho e já abrirá a interface no seu navegador.
+Quando terminar de usar, basta ir no terminal e apertar **Ctrl + C** para desligar.
 
 ---
 
