@@ -1,0 +1,8 @@
+node_modules/
+output/
+.agents/
+.claude/
+.impeccable/
+server.log
+test_exec.js
+.DS_Store
