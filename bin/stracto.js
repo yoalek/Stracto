@@ -7,7 +7,7 @@ const path = require('path');
 const serverPath = path.join(__dirname, '../server.js');
 const cwd = path.join(__dirname, '..');
 
-console.log('🚀 Iniciando Stractor...');
+console.log('🚀 Iniciando Stracto...');
 
 // Start the server
 const server = spawn('node', [serverPath], { 

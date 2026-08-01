@@ -40,7 +40,7 @@ sudo npm install -g yoalek/Stracto
 Pronto! A ferramenta já está instalada no seu computador. 
 A partir de agora, sempre que quiser abrir o app, basta abrir o Terminal e digitar:
 ```bash
-stractor
+stracto
 ```
 O servidor vai iniciar sozinho e já abrirá a interface no seu navegador.
 Quando terminar de usar, basta ir no terminal e apertar **Ctrl + C** para desligar.
