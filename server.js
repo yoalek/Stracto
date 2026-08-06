@@ -105,7 +105,31 @@ async function processJob(jobId) {
         let downloadedFile = null;
         broadcast(jobId, 'log', { message: '🎬 1/4 - Baixando vídeo com yt-dlp...' });
         
-        const cmd = `yt-dlp --merge-output-format mp4 -o "${jobDir}/video.%(ext)s" -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" "${url}"`;
+        let finalUrl = url;
+        let formatArg = `-f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"`;
+
+        if (url.includes('facebook.com') || url.includes('fb.watch')) {
+            broadcast(jobId, 'log', { message: '🔍 Detectado Facebook. Usando bypass avançado de extração...' });
+            
+            // Fix trailing garbage on URL (like /x)
+            let cleanUrl = url.split('?')[0];
+            if (cleanUrl.match(/facebook\.com\/share\/r\/[a-zA-Z0-9]+/)) {
+                cleanUrl = cleanUrl.match(/(.*facebook\.com\/share\/r\/[a-zA-Z0-9]+)/)[1] + '/';
+            }
+            
+            try {
+                const downloader = require('btch-downloader');
+                const fbData = await downloader.fbdown(cleanUrl);
+                if (fbData && fbData.status && (fbData.HD || fbData.Normal_video)) {
+                    finalUrl = fbData.HD || fbData.Normal_video;
+                    formatArg = ''; // Direct URL, no format selection needed
+                }
+            } catch (err) {
+                console.log("Falha no bypass do Facebook, tentando yt-dlp padrão:", err.message);
+            }
+        }
+
+        const cmd = `yt-dlp ${formatArg} --merge-output-format mp4 -o "${jobDir}/video.%(ext)s" "${finalUrl}"`;
         await execPromise(cmd);
         
         const files = fs.readdirSync(jobDir);
@@ -200,7 +224,13 @@ async function processJob(jobId) {
         // fs.unlinkSync(audioPath);
         
     } catch (e) {
-        broadcast(jobId, 'error', { message: e.message || 'Falha ao processar o vídeo.' });
+        let errorMsg = e.message || 'Falha ao processar o vídeo.';
+        if (errorMsg.includes('Cannot parse data')) {
+            errorMsg = 'O Facebook/Instagram bloqueou o download deste vídeo por questões de privacidade (anti-bot). Tente usar um link do YouTube ou TikTok.';
+        } else if (errorMsg.includes('Command failed: yt-dlp')) {
+            errorMsg = 'Não foi possível baixar o vídeo. O link pode ser privado ou o formato não é suportado no momento.';
+        }
+        broadcast(jobId, 'error', { message: errorMsg });
     }
 }
 

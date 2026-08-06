@@ -16,8 +16,10 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@xenova/transformers": "^2.17.2",
+    "btch-downloader": "^6.0.38",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "snapsave-media-downloader": "^2.4.1",
     "wavefile": "^11.0.0"
   }
 }
